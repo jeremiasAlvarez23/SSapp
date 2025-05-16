@@ -1,13 +1,13 @@
-using SecuritysApp.Negocio.Entidades;
 using SecuritysApp.Models.Usuario;
+using SecuritysApp.Negocio.Entidades;
 
-namespace SecuritysApp.Negocio.Extensiones
+namespace SecuritysApp.Negocio.Extension
 {
     public static class UsuarioExtension
     {
-        public static ObtenerTodoUsuarioResponse ToResponse(this Usuarios usuario)
+        public static UsuarioResponse ToResponse(this Usuario usuario)
         {
-            return new ObtenerTodoUsuarioResponse
+            return new UsuarioResponse
             {
                 UsuarioId = usuario.UsuarioId,
                 Nombre = usuario.Nombre,
