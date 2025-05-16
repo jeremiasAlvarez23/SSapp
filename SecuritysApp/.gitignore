@@ -1,0 +1,20 @@
+# Ignore build output
+/bin/
+/obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+
+# Ignore compiled DLLs, executables and PDBs
+*.dll
+*.exe
+*.pdb
+
+# Ignore generated files
+*.cache
+*.log
+*.sln.docstates
+
+# Ignore VS Code settings
+.vscode/
