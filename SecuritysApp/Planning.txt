@@ -1,0 +1,146 @@
+Planning de Desarrollo - SecuritysApp
+
+✨ Introducción
+
+SecuritysApp es una aplicación modular que funciona como un portal centralizado de autenticación y acceso a múltiples sistemas independientes, cada uno con su propia base de datos. Este documento presenta el plan de trabajo completo para su desarrollo, dividido en etapas, tareas y responsables.
+
+🔹 Etapa 1: Análisis y Diseño de la Arquitectura
+
+Objetivos:
+
+Definir la arquitectura general
+
+Establecer tecnologías y convenciones
+
+Tareas:
+
+
+
+Resultado:
+
+Documentación de arquitectura y flujo de sistemas
+
+Diagramas de entidad-relación (ERD)
+
+🔹 Etapa 2: Diseño de Base de Datos
+
+Objetivos:
+
+Diseñar e implementar la DB central del portal
+
+Crear al menos un sistema conectado independiente
+
+Tareas:
+
+
+
+Resultado:
+
+Scripts SQL para crear estructuras
+
+Primera base de datos operativa en Azure
+
+🔹 Etapa 3: Backend API
+
+Objetivos:
+
+Construir APIs REST seguras y reutilizables
+
+Gestionar autenticación, usuarios y accesos
+
+Tareas:
+
+
+
+Resultado:
+
+Proyecto .NET 8 funcional
+
+Swagger accesible para testeo
+
+🔹 Etapa 4: Frontend Web (Administrador + Portal Usuario)
+
+Objetivos:
+
+Crear interfaz web para usuarios y administradores
+
+Tareas:
+
+
+
+Resultado:
+
+App Web funcional alojada en Azure
+
+🔹 Etapa 5: Frontend Mobile (SecuritysApp Mobile)
+
+Objetivos:
+
+Crear versión mobile utilizando el mismo backend
+
+Tareas:
+
+
+
+Resultado:
+
+App para Android/iOS lista para deploy
+
+🔹 Etapa 6: Seguridad y Control de Acceso
+
+Objetivos:
+
+Proteger el sistema ante accesos no autorizados
+
+Tareas:
+
+
+
+Resultado:
+
+API segura y protegida
+
+🔹 Etapa 7: Testing y Documentación
+
+Objetivos:
+
+Validar el correcto funcionamiento del sistema
+
+Tareas:
+
+
+
+Resultado:
+
+Sistema validado, documentado y listo para entrega
+
+🔹 Etapa 8: Deploy y Entorno Productivo
+
+Objetivos:
+
+Publicar la aplicación
+
+Tareas:
+
+
+
+Resultado:
+
+SecuritysApp en entorno de producción
+
+🌍 Consideraciones Finales
+
+Escalable para múltiples sistemas y organizaciones
+
+Soporta multicliente y multibase
+
+Seguridad centralizada
+
+Reutilización total del backend para Web y Mobile
+
+✅ Comenzar por: DB + API de Usuarios + Login JWT
+
+💡 Luego avanzar hacia permisos, sistemas y modularización
+
+SecuritysApp: Autenticación centralizada, control total, y extensión a múltiples entornos.
+

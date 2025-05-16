@@ -9451,11 +9451,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrador\\Desktop\\New folder\\SSapp\\SecuritysApp\\SecuritysApp.csproj",
+      "projectUniqueName": "C:\\Users\\Administrador\\Desktop\\Repos\\SSapp\\SecuritysApp\\SecuritysApp.csproj",
       "projectName": "SecuritysApp",
-      "projectPath": "C:\\Users\\Administrador\\Desktop\\New folder\\SSapp\\SecuritysApp\\SecuritysApp.csproj",
+      "projectPath": "C:\\Users\\Administrador\\Desktop\\Repos\\SSapp\\SecuritysApp\\SecuritysApp.csproj",
       "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrador\\Desktop\\New folder\\SSapp\\SecuritysApp\\obj\\",
+      "outputPath": "C:\\Users\\Administrador\\Desktop\\Repos\\SSapp\\SecuritysApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config"
