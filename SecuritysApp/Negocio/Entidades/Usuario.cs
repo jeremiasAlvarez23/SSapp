@@ -15,5 +15,9 @@ public partial class Usuario
 
     public bool Activo { get; set; }
 
+    public int? RolId { get; set; }
+
+    public virtual Rol? Rol { get; set; }
+
     public virtual ICollection<UsuarioSistema> UsuarioSistema { get; set; } = new List<UsuarioSistema>();
 }

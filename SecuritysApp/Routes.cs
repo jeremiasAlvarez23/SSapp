@@ -24,6 +24,18 @@ namespace SecuritysApp.Routes
                 public const string Activar = Base + "/usuario/activar/{id}";
             }
 
+            public static class Rol
+            {
+                public const string Insertar = Base + "/rol/insertar";
+                public const string ObtenerTodo = Base + "/rol";
+                public const string Editar = Base + "/rol/editar/{id}";
+                public const string Eliminar = Base + "/rol/desactivar/{id}";
+            }
+            public static class Perfil
+            {
+                public const string ObtenerPerfil = Base + "/perfil";
+            }
+
         }
     }
 }

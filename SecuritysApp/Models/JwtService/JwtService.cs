@@ -7,7 +7,7 @@ namespace SecuritysApp.Models.JwtService
 {
     public static class JwtService
     {
-        public static string GenerarToken(int usuarioId, string email, List<int> sistemaIds)
+        public static string GenerarToken(int usuarioId, string email, List<int> sistemaIds, string rol)
         {
             var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
 
@@ -23,7 +23,8 @@ namespace SecuritysApp.Models.JwtService
             {
                 new Claim("UsuarioId", usuarioId.ToString()),
                 new Claim("Email", email),
-                new Claim("Sistemas", string.Join(",", sistemaIds))
+                new Claim("Sistemas", string.Join(",", sistemaIds)),
+                new Claim(ClaimTypes.Role, rol) // 🔐 Incluimos el Rol como claim
             };
 
             var token = new JwtSecurityToken(

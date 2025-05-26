@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SecuritysApp.Models.Usuario;
 using SecuritysApp.Negocio.Gestores;
 using SecuritysApp.Routes;
@@ -6,6 +7,7 @@ using SecuritysApp.Utils;
 
 namespace SecuritysApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("[controller]")]
     public class UsuarioController : AppController

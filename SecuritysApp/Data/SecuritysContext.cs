@@ -56,6 +56,10 @@ public partial class SecuritysContext : DbContext
             entity.Property(e => e.Activo).HasDefaultValue(true);
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Nombre).HasMaxLength(100);
+
+            entity.HasOne(d => d.Rol).WithMany(p => p.Usuario)
+                .HasForeignKey(d => d.RolId)
+                .HasConstraintName("FK_Usuario_Rol");
         });
 
         modelBuilder.Entity<UsuarioSistema>(entity =>

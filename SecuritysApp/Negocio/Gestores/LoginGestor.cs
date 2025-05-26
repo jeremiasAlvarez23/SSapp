@@ -13,23 +13,25 @@ namespace SecuritysApp.Negocio.Gestores
             using var context = new SecuritysContext();
 
             var usuario = context.Usuario
-                .Include(u => u.UsuarioSistema)
-                .FirstOrDefault(u => u.Email == request.Email && u.Activo);
+        .Include(u => u.UsuarioSistema)
+        .Include(u => u.Rol) // 👈 Ahora sí funciona
+        .FirstOrDefault(u => u.Email == request.Email && u.Activo);
+
 
             if (usuario == null)
                 return null;
 
-            // TODO: Validar contraseña con hash
             if (!PasswordHelper.Verificar(request.Clave, usuario.PasswordHash))
                 return null;
-
 
             var sistemas = usuario.UsuarioSistema
                 .Where(us => us.TieneAcceso)
                 .Select(us => us.SistemaId)
                 .ToList();
 
-            var token = JwtService.GenerarToken(usuario.UsuarioId, usuario.Email, sistemas);
+            var rol = usuario.Rol?.Nombre ?? "Usuario";
+            var token = JwtService.GenerarToken(usuario.UsuarioId, usuario.Email, sistemas, rol);
+
 
             return new LoginResponse
             {
