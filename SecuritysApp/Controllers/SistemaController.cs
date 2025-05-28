@@ -32,6 +32,13 @@ namespace SecuritysApp.Controllers
             return sistema == null ? NotFound() : Ok(sistema);
         }
 
+        [HttpGet(AppRoutes.v1.Sistema.ObtenerConPaginacion)]
+        public IActionResult ObtenerConPaginacion([FromQuery] int skip = 0, [FromQuery] int take = 10, [FromQuery] string? busqueda = null, [FromQuery] bool? activo = null)
+        {
+            var sistemas = SistemaGestor.ObtenerConPaginacion(skip, take, busqueda, activo);
+            return Ok(sistemas);
+        }
+
         [HttpPut(AppRoutes.v1.Sistema.Editar)]
         public IActionResult Editar(int id, InsertarSistemaRequest request)
         {

@@ -19,6 +19,7 @@ namespace SecuritysApp.Routes
                 public const string ObtenerTodo = Base + "/usuario";
                 public const string ObtenerPorFiltro = Base + "/usuario/filtro";
                 public const string ObtenerPorId = Base + "/usuario/{id}";
+                public const string ObtenerConPaginacion = Base + "/usuario/paginado";
                 public const string Editar = Base + "/usuario/editar/{id}";
                 public const string Desactivar = Base + "/usuario/desactivar/{id}";
                 public const string Activar = Base + "/usuario/activar/{id}";
@@ -31,9 +32,18 @@ namespace SecuritysApp.Routes
                 public const string Editar = Base + "/rol/editar/{id}";
                 public const string Eliminar = Base + "/rol/desactivar/{id}";
             }
+
             public static class Perfil
             {
                 public const string ObtenerPerfil = Base + "/perfil";
+            }
+
+            public static class UsuarioSistema
+            {
+                public const string Insertar = Base + "/usuariosistema/insertar";
+                public const string ObtenerTodo = Base + "/usuariosistema";
+                public const string Editar = Base + "/usuariosistema/editar";
+                public const string Eliminar = Base + "/usuariosistema/eliminar";
             }
 
             public static class Sistema
@@ -41,6 +51,7 @@ namespace SecuritysApp.Routes
                 public const string Insertar = Base + "/sistema/insertar";
                 public const string ObtenerTodo = Base + "/sistema";
                 public const string ObtenerPorId = Base + "/sistema/{id}";
+                public const string ObtenerConPaginacion = Base + "/sistema/paginado";
                 public const string Editar = Base + "/sistema/editar/{id}";
                 public const string Desactivar = Base + "/sistema/desactivar/{id}";
                 public const string Activar = Base + "/sistema/activar/{id}";

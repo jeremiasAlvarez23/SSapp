@@ -34,6 +34,28 @@ namespace SecuritysApp.Negocio.Gestores
             return context.Sistema.FirstOrDefault(s => s.SistemaId == id)?.ToResponse();
         }
 
+        public static List<SistemaResponse> ObtenerConPaginacion(int skip, int take, string? busqueda, bool? activo)
+        {
+            using var context = new SecuritysContext();
+            var query = context.Sistema.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                query = query.Where(s => s.Nombre.Contains(busqueda) || (s.Descripcion != null && s.Descripcion.Contains(busqueda)));
+            }
+
+            if (activo.HasValue)
+            {
+                query = query.Where(s => s.Activo == activo);
+            }
+
+            return query
+                .OrderBy(s => s.Nombre)
+                .Skip(skip)
+                .Take(take)
+                .Select(s => s.ToResponse())
+                .ToList();
+        }
         public static bool Editar(int id, InsertarSistemaRequest request)
         {
             using var context = new SecuritysContext();

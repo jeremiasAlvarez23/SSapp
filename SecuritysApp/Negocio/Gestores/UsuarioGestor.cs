@@ -63,6 +63,32 @@ namespace SecuritysApp.Negocio.Gestores
             return usuario?.ToResponse();
         }
 
+        public static List<UsuarioResponse> ObtenerConPaginacion(int skip, int take, string? busqueda, bool? activo)
+        {
+            using var context = new SecuritysContext();
+            var query = context.Usuario
+                .Include(u => u.Rol)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                query = query.Where(u => u.Nombre.Contains(busqueda) || u.Email.Contains(busqueda));
+            }
+
+            if (activo.HasValue)
+            {
+                query = query.Where(u => u.Activo == activo);
+            }
+
+            return query
+                .OrderBy(u => u.Nombre)
+                .Skip(skip)
+                .Take(take)
+                .Select(u => u.ToResponse())
+                .ToList();
+        }
+
+
         public static void Editar(int id, UsuarioRequest request)
         {
             using var context = new SecuritysContext();

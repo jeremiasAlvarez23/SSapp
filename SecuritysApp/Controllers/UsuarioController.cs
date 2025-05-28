@@ -39,6 +39,12 @@ namespace SecuritysApp.Controllers
             var usuario = UsuarioGestor.ObtenerPorId(id);
             return usuario == null ? NotFound() : Ok(usuario);
         }
+        [HttpGet(AppRoutes.v1.Usuario.ObtenerConPaginacion)]
+        public IActionResult ObtenerConPaginacion([FromQuery] int skip = 0, [FromQuery] int take = 10, [FromQuery] string? busqueda = null, [FromQuery] bool? activo = null)
+        {
+            var usuarios = UsuarioGestor.ObtenerConPaginacion(skip, take, busqueda, activo);
+            return Ok(usuarios);
+        }
 
         [HttpPut(AppRoutes.v1.Usuario.Editar)]
         public IActionResult Editar(int id, [FromBody] UsuarioRequest request)
