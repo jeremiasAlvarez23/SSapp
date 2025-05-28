@@ -12,6 +12,7 @@ namespace SecuritysApp.Negocio.Extension
                 UsuarioId = usuario.UsuarioId,
                 Nombre = usuario.Nombre,
                 Email = usuario.Email,
+                Rol = usuario.Rol?.Nombre ?? "Usuario",
                 Activo = usuario.Activo
             };
         }

@@ -5,5 +5,6 @@ namespace SecuritysApp.Models.Usuario
         public string Nombre { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Clave { get; set; } = null!;
+        public int RolId { get; set; }
     }
 }

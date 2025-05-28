@@ -36,6 +36,16 @@ namespace SecuritysApp.Routes
                 public const string ObtenerPerfil = Base + "/perfil";
             }
 
+            public static class Sistema
+            {
+                public const string Insertar = Base + "/sistema/insertar";
+                public const string ObtenerTodo = Base + "/sistema";
+                public const string ObtenerPorId = Base + "/sistema/{id}";
+                public const string Editar = Base + "/sistema/editar/{id}";
+                public const string Desactivar = Base + "/sistema/desactivar/{id}";
+                public const string Activar = Base + "/sistema/activar/{id}";
+            }
+
         }
     }
 }
