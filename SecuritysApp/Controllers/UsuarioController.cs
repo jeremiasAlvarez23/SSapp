@@ -15,7 +15,10 @@ namespace SecuritysApp.Controllers
         [HttpPost(AppRoutes.v1.Usuario.Insertar)]
         public IActionResult Insertar([FromBody] UsuarioRequest request)
         {
-            UsuarioGestor.Insertar(request);
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            UsuarioGestor.Insertar(request, usuarioEjecutorId, ip, userAgent);
             return Ok(new { mensaje = "Usuario creado exitosamente" });
         }
 
@@ -39,6 +42,7 @@ namespace SecuritysApp.Controllers
             var usuario = UsuarioGestor.ObtenerPorId(id);
             return usuario == null ? NotFound() : Ok(usuario);
         }
+
         [HttpGet(AppRoutes.v1.Usuario.ObtenerConPaginacion)]
         public IActionResult ObtenerConPaginacion([FromQuery] int skip = 0, [FromQuery] int take = 10, [FromQuery] string? busqueda = null, [FromQuery] bool? activo = null)
         {
@@ -49,24 +53,31 @@ namespace SecuritysApp.Controllers
         [HttpPut(AppRoutes.v1.Usuario.Editar)]
         public IActionResult Editar(int id, [FromBody] UsuarioRequest request)
         {
-            UsuarioGestor.Editar(id, request);
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            UsuarioGestor.Editar(id, request, usuarioEjecutorId, ip, userAgent);
             return Ok(new { mensaje = "Usuario actualizado" });
         }
 
         [HttpPut(AppRoutes.v1.Usuario.Desactivar)]
         public IActionResult Desactivar(int id)
         {
-            UsuarioGestor.Desactivar(id);
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            UsuarioGestor.Desactivar(id, usuarioEjecutorId, ip, userAgent);
             return Ok(new { mensaje = "Usuario desactivado" });
         }
 
         [HttpPut(AppRoutes.v1.Usuario.Activar)]
         public IActionResult Activar(int id)
         {
-            UsuarioGestor.Activar(id);
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            UsuarioGestor.Activar(id, usuarioEjecutorId, ip, userAgent);
             return Ok(new { mensaje = "Usuario activado" });
         }
-
-
     }
 }

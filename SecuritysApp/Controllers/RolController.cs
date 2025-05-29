@@ -5,7 +5,6 @@ using SecuritysApp.Negocio.Gestores;
 using SecuritysApp.Routes;
 using SecuritysApp.Utils;
 
-
 namespace SecuritysApp.Controllers
 {
     [Authorize(Roles = "Admin")]
@@ -16,7 +15,10 @@ namespace SecuritysApp.Controllers
         [HttpPost(AppRoutes.v1.Rol.Insertar)]
         public IActionResult Insertar([FromBody] RolRequest request)
         {
-            RolGestor.Insertar(request);
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            RolGestor.Insertar(request, usuarioEjecutorId, ip, userAgent);
             return Ok(new { mensaje = "Rol creado exitosamente" });
         }
 
@@ -30,14 +32,20 @@ namespace SecuritysApp.Controllers
         [HttpPut(AppRoutes.v1.Rol.Editar)]
         public IActionResult Editar(int id, [FromBody] RolRequest request)
         {
-            RolGestor.Editar(id, request);
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            RolGestor.Editar(id, request, usuarioEjecutorId, ip, userAgent);
             return Ok(new { mensaje = "Rol actualizado" });
         }
 
         [HttpDelete(AppRoutes.v1.Rol.Eliminar)]
         public IActionResult Eliminar(int id)
         {
-            RolGestor.Eliminar(id);
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            RolGestor.Eliminar(id, usuarioEjecutorId, ip, userAgent);
             return Ok(new { mensaje = "Rol eliminado" });
         }
     }

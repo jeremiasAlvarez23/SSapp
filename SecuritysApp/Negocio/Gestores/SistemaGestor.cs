@@ -1,12 +1,13 @@
 using SecuritysApp.Data;
 using SecuritysApp.Models.Sistema;
 using SecuritysApp.Negocio.Extension;
+using SecuritysApp.Auditoria.Gestores;
 
 namespace SecuritysApp.Negocio.Gestores
 {
     public static class SistemaGestor
     {
-        public static void Insertar(InsertarSistemaRequest request)
+        public static void Insertar(InsertarSistemaRequest request, int usuarioEjecutorId, string? ip = null, string? navegador = null)
         {
             using var context = new SecuritysContext();
             var sistema = new Entidades.Sistema
@@ -18,6 +19,8 @@ namespace SecuritysApp.Negocio.Gestores
             };
             context.Sistema.Add(sistema);
             context.SaveChanges();
+
+            AuditoriaGestor.RegistrarEvento(usuarioEjecutorId, "Alta Sistema", $"Se creó el sistema {sistema.Nombre}", "Sistema", sistema.SistemaId.ToString(), null, ip, navegador);
         }
 
         public static List<SistemaResponse> ObtenerTodo()
@@ -56,20 +59,26 @@ namespace SecuritysApp.Negocio.Gestores
                 .Select(s => s.ToResponse())
                 .ToList();
         }
-        public static bool Editar(int id, InsertarSistemaRequest request)
+
+        public static bool Editar(int id, InsertarSistemaRequest request, int usuarioEjecutorId, string? ip = null, string? navegador = null)
         {
             using var context = new SecuritysContext();
             var sistema = context.Sistema.FirstOrDefault(s => s.SistemaId == id);
             if (sistema == null) return false;
 
+            var datosAnteriores = $"Nombre: {sistema.Nombre}, Descripcion: {sistema.Descripcion}, UrlBase: {sistema.UrlBase}";
+
             sistema.Nombre = request.Nombre;
             sistema.Descripcion = request.Descripcion;
             sistema.UrlBase = request.UrlBase;
             context.SaveChanges();
+
+            var datosNuevos = $"Nombre: {sistema.Nombre}, Descripcion: {sistema.Descripcion}, UrlBase: {sistema.UrlBase}";
+            AuditoriaGestor.RegistrarEvento(usuarioEjecutorId, "Editar Sistema", $"Sistema {sistema.Nombre} editado", "Sistema", sistema.SistemaId.ToString(), null, ip, navegador);
             return true;
         }
 
-        public static bool Desactivar(int id)
+        public static bool Desactivar(int id, int usuarioEjecutorId, string? ip = null, string? navegador = null)
         {
             using var context = new SecuritysContext();
             var sistema = context.Sistema.FirstOrDefault(s => s.SistemaId == id);
@@ -77,10 +86,12 @@ namespace SecuritysApp.Negocio.Gestores
 
             sistema.Activo = false;
             context.SaveChanges();
+
+            AuditoriaGestor.RegistrarEvento(usuarioEjecutorId, "Desactivar Sistema", $"Sistema {sistema.Nombre} desactivado", "Sistema", sistema.SistemaId.ToString(), null, ip, navegador);
             return true;
         }
 
-        public static bool Activar(int id)
+        public static bool Activar(int id, int usuarioEjecutorId, string? ip = null, string? navegador = null)
         {
             using var context = new SecuritysContext();
             var sistema = context.Sistema.FirstOrDefault(s => s.SistemaId == id);
@@ -88,8 +99,9 @@ namespace SecuritysApp.Negocio.Gestores
 
             sistema.Activo = true;
             context.SaveChanges();
+
+            AuditoriaGestor.RegistrarEvento(usuarioEjecutorId, "Activar Sistema", $"Sistema {sistema.Nombre} activado", "Sistema", sistema.SistemaId.ToString(), null, ip, navegador);
             return true;
         }
-
     }
 }

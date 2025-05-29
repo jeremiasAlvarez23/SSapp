@@ -21,7 +21,10 @@ namespace SecuritysApp.Controllers
             if (!int.TryParse(usuarioIdClaim, out int usuarioId))
                 return Unauthorized();
 
-            var perfil = PerfilGestor.ObtenerPerfil(usuarioId);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+
+            var perfil = PerfilGestor.ObtenerPerfil(usuarioId, ip, userAgent);
             if (perfil == null)
                 return NotFound();
 

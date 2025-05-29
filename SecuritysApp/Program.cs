@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
 using SecuritysApp.Data;
+using SecuritysApp.Auditoria.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -10,11 +11,18 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. Cargar variables del archivo .env
 Env.Load();
 
-// 2. Obtener la cadena de conexión
+// 2. Obtener la cadena de conexión para la base principal
 var connectionString = Environment.GetEnvironmentVariable("CADENA");
 if (string.IsNullOrEmpty(connectionString))
 {
     throw new Exception("La variable de entorno 'CADENA' no está definida en el .env");
+}
+
+// 2.b Obtener la cadena de conexión para la base de auditoría
+var auditoriaConnectionString = Environment.GetEnvironmentVariable("CADENA_AUDITORIA");
+if (string.IsNullOrEmpty(auditoriaConnectionString))
+{
+    throw new Exception("La variable 'CADENA_AUDITORIA' no está definida en el .env");
 }
 
 // 3. Obtener la clave JWT
@@ -25,9 +33,12 @@ if (string.IsNullOrEmpty(jwtSecret) || jwtSecret.Length < 32)
 }
 var key = Encoding.UTF8.GetBytes(jwtSecret);
 
-// 4. Agregar DbContext con SQL Server
+// 4. Agregar DbContexts con SQL Server
 builder.Services.AddDbContext<SecuritysContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddDbContext<AuditoriaContext>(options =>
+    options.UseSqlServer(auditoriaConnectionString));
 
 // 5. Configurar autenticación JWT
 builder.Services.AddAuthentication(options =>
@@ -68,7 +79,6 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // 🔐 Configurar botón Authorize con JWT
     var jwtSecurityScheme = new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Scheme = "bearer",
@@ -94,15 +104,15 @@ builder.Services.AddSwaggerGen(options =>
 // 7. Crear app
 var app = builder.Build();
 
-// Activa Swagger SIEMPRE (no solo en desarrollo)
+// Activa Swagger siempre
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "SecuritysApp API v1");
-    options.RoutePrefix = string.Empty; // Mostrará Swagger directamente en la raíz
+    options.RoutePrefix = string.Empty;
 });
 
-// Middleware de autenticación y autorización
+// Middleware
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

@@ -15,7 +15,10 @@ namespace SecuritysApp.Controllers
         [HttpPost(AppRoutes.v1.UsuarioSistema.Insertar)]
         public IActionResult Insertar([FromBody] UsuarioSistemaRequest request)
         {
-            UsuarioSistemaGestor.Insertar(request);
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            UsuarioSistemaGestor.Insertar(request, usuarioEjecutorId, ip, userAgent);
             return Ok("Relación Usuario-Sistema insertada.");
         }
 
@@ -28,13 +31,19 @@ namespace SecuritysApp.Controllers
         [HttpPut(AppRoutes.v1.UsuarioSistema.Editar)]
         public IActionResult Editar([FromBody] UsuarioSistemaRequest request)
         {
-            return UsuarioSistemaGestor.Editar(request) ? Ok("Relación actualizada.") : NotFound();
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            return UsuarioSistemaGestor.Editar(request, usuarioEjecutorId, ip, userAgent) ? Ok("Relación actualizada.") : NotFound();
         }
 
         [HttpDelete(AppRoutes.v1.UsuarioSistema.Eliminar)]
         public IActionResult Eliminar([FromQuery] int usuarioId, [FromQuery] int sistemaId)
         {
-            return UsuarioSistemaGestor.Eliminar(usuarioId, sistemaId) ? Ok("Relación eliminada.") : NotFound();
+            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var userAgent = Request.Headers["User-Agent"].ToString();
+            return UsuarioSistemaGestor.Eliminar(usuarioId, sistemaId, usuarioEjecutorId, ip, userAgent) ? Ok("Relación eliminada.") : NotFound();
         }
     }
 }
