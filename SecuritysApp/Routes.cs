@@ -11,6 +11,7 @@ namespace SecuritysApp.Routes
             public static class Login
             {
                 public const string Post = Base + "/login";
+                public const string Logout = Base + "/logout";
             }
 
             public static class Usuario

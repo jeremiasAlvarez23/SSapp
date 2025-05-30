@@ -101,6 +101,18 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// Configurar CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()      // O usa WithOrigins("http://localhost:8080")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+
 // 7. Crear app
 var app = builder.Build();
 
@@ -114,6 +126,7 @@ app.UseSwaggerUI(options =>
 
 // Middleware
 app.UseHttpsRedirection();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
