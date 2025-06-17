@@ -1,0 +1,66 @@
+# 📘 Documentación Técnica del Frontend (Vue.js)
+
+## 🗂 Estructura principal
+
+- **`App.vue`**: componente raíz.
+- **`main.js`**: punto de entrada que inicializa Vue y Vuetify.
+- **`views/`**: contiene las páginas principales como `LoginView.vue`, `DashboardView.vue`, etc.
+- **`components/`**: componentes reutilizables como `SidebarMenu`, `HeaderBar`, y `ABMmenu`.
+- **`router/index.js`**: define las rutas del sistema.
+- **`services/`**: lógica para consumir APIs (por ejemplo, `AuthService.js`, `MenuService.js`).
+- **`plugins/vuetify.js`**: configuración de Vuetify.
+
+---
+
+## 🔁 Flujo de trabajo general
+
+1. **Inicio del sistema**
+   - Se lanza desde `main.js`, que monta `App.vue`.
+   - `App.vue` carga el layout general (`DefaultLayout.vue`), que incluye el `HeaderBar` y el `SidebarMenu`.
+
+2. **Autenticación**
+   - `LoginView.vue` muestra un formulario.
+   - El formulario usa `AuthService.js` para hacer `POST /login` al backend.
+   - Si el login es exitoso, se guarda el token en localStorage y se redirige a `DashboardView.vue`.
+
+3. **Carga dinámica del menú**
+   - Al iniciar sesión, `SidebarMenu.vue` hace una llamada a `MenuService.js` → `GET /menu/porUsuario`.
+   - Se renderizan los ítems del menú según los permisos del usuario.
+
+4. **Navegación**
+   - `router/index.js` gestiona las rutas protegidas por autenticación.
+   - Se redirecciona a login si no hay token.
+
+5. **ABM de datos**
+   - `ABMmenu.vue` ofrece un ejemplo de un CRUD (alta, baja, modificación) contra el backend.
+   - Usa Vuetify para mostrar formularios, tablas y acciones.
+   - Llama a `MenuService.js` para interactuar con endpoints como:
+     - `POST /menu/insertar`
+     - `GET /menu/todo`
+     - `PUT /menu/editar`
+
+---
+
+## 🔒 Seguridad
+
+- Se guarda el JWT en `localStorage` tras login.
+- Las rutas protegidas se gestionan en `router/index.js` con `beforeEach` para validar autenticación.
+- Se puede mejorar moviendo el token a `sessionStorage` o cookies seguras (HttpOnly).
+
+---
+
+## 🎨 UI/UX
+
+- Vuetify está configurado como framework de diseño.
+- `DefaultLayout.vue` gestiona el diseño principal (header, menú lateral, contenido).
+- Estilo responsive y estructura basada en grid.
+
+---
+
+## ✅ Flujo típico del usuario
+
+1. Accede a `/login`.
+2. Se autentica y se redirige al `Dashboard`.
+3. El menú se genera dinámicamente.
+4. Navega por distintas secciones según su perfil.
+5. Usa vistas como `ABMmenu.vue` para operar con el backend.

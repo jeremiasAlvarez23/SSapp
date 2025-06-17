@@ -1,0 +1,195 @@
+# 📘 Documentación Técnica Funcional de las APIs del Backend
+
+## 🔹 Controlador: `LoginController`
+Este controlador gestiona las operaciones relacionadas con login en el sistema.
+
+### 🔸 Método: `Login`
+- **Parámetros:** [FromBody] LoginRequest request
+- **Descripción funcional:** Este método forma parte del controlador `Login` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Logout`
+- **Parámetros:** (sin parámetros)
+- **Descripción funcional:** Este método forma parte del controlador `Login` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+---
+## 🔹 Controlador: `MenuController`
+Este controlador gestiona las operaciones relacionadas con menu en el sistema.
+
+### 🔸 Método: `Insertar`
+- **Parámetros:** InsertarMenuRequest request
+- **Descripción funcional:** Este método forma parte del controlador `Menu` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerTodo`
+- **Parámetros:** (sin parámetros)
+- **Descripción funcional:** Este método forma parte del controlador `Menu` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerPorUsuario`
+- **Parámetros:** (sin parámetros)
+- **Descripción funcional:** Este método forma parte del controlador `Menu` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerPadres`
+- **Parámetros:** (sin parámetros)
+- **Descripción funcional:** Este método forma parte del controlador `Menu` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerUltimoOrden`
+- **Parámetros:** int padreId
+- **Descripción funcional:** Este método forma parte del controlador `Menu` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Editar`
+- **Parámetros:** int id, InsertarMenuRequest request
+- **Descripción funcional:** Este método forma parte del controlador `Menu` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Eliminar`
+- **Parámetros:** int id
+- **Descripción funcional:** Este método forma parte del controlador `Menu` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+---
+## 🔹 Controlador: `PerfilController`
+Este controlador gestiona las operaciones relacionadas con perfil en el sistema.
+
+### 🔸 Método: `ObtenerPerfil`
+- **Parámetros:** (sin parámetros)
+- **Descripción funcional:** Este método forma parte del controlador `Perfil` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+---
+## 🔹 Controlador: `RolController`
+Este controlador gestiona las operaciones relacionadas con rol en el sistema.
+
+### 🔸 Método: `Insertar`
+- **Parámetros:** [FromBody] RolRequest request
+- **Descripción funcional:** Este método forma parte del controlador `Rol` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerTodo`
+- **Parámetros:** (sin parámetros)
+- **Descripción funcional:** Este método forma parte del controlador `Rol` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Editar`
+- **Parámetros:** int id, [FromBody] RolRequest request
+- **Descripción funcional:** Este método forma parte del controlador `Rol` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Eliminar`
+- **Parámetros:** int id
+- **Descripción funcional:** Este método forma parte del controlador `Rol` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+---
+## 🔹 Controlador: `SistemaController`
+Este controlador gestiona las operaciones relacionadas con sistema en el sistema.
+
+### 🔸 Método: `Insertar`
+- **Parámetros:** InsertarSistemaRequest request
+- **Descripción funcional:** Este método forma parte del controlador `Sistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerTodo`
+- **Parámetros:** (sin parámetros)
+- **Descripción funcional:** Este método forma parte del controlador `Sistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerPorId`
+- **Parámetros:** int id
+- **Descripción funcional:** Este método forma parte del controlador `Sistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerConPaginacion`
+- **Parámetros:** [FromQuery] int skip = 0, [FromQuery] int take = 10, [FromQuery] string? busqueda = null, [FromQuery] bool? activo = null
+- **Descripción funcional:** Este método forma parte del controlador `Sistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Editar`
+- **Parámetros:** int id, InsertarSistemaRequest request
+- **Descripción funcional:** Este método forma parte del controlador `Sistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Activar`
+- **Parámetros:** int id
+- **Descripción funcional:** Este método forma parte del controlador `Sistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Desactivar`
+- **Parámetros:** int id
+- **Descripción funcional:** Este método forma parte del controlador `Sistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+---
+## 🔹 Controlador: `UsuarioController`
+Este controlador gestiona las operaciones relacionadas con usuario en el sistema.
+
+### 🔸 Método: `Insertar`
+- **Parámetros:** [FromBody] UsuarioRequest request
+- **Descripción funcional:** Este método forma parte del controlador `Usuario` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerTodo`
+- **Parámetros:** (sin parámetros)
+- **Descripción funcional:** Este método forma parte del controlador `Usuario` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerPorFiltro`
+- **Parámetros:** [FromQuery] bool activo
+- **Descripción funcional:** Este método forma parte del controlador `Usuario` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerPorId`
+- **Parámetros:** int id
+- **Descripción funcional:** Este método forma parte del controlador `Usuario` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerConPaginacion`
+- **Parámetros:** [FromQuery] int skip = 0, [FromQuery] int take = 10, [FromQuery] string? busqueda = null, [FromQuery] bool? activo = null
+- **Descripción funcional:** Este método forma parte del controlador `Usuario` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Editar`
+- **Parámetros:** int id, [FromBody] UsuarioRequest request
+- **Descripción funcional:** Este método forma parte del controlador `Usuario` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Desactivar`
+- **Parámetros:** int id
+- **Descripción funcional:** Este método forma parte del controlador `Usuario` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Activar`
+- **Parámetros:** int id
+- **Descripción funcional:** Este método forma parte del controlador `Usuario` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+---
+## 🔹 Controlador: `UsuarioSistemaController`
+Este controlador gestiona las operaciones relacionadas con usuariosistema en el sistema.
+
+### 🔸 Método: `Insertar`
+- **Parámetros:** [FromBody] UsuarioSistemaRequest request
+- **Descripción funcional:** Este método forma parte del controlador `UsuarioSistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `ObtenerTodo`
+- **Parámetros:** (sin parámetros)
+- **Descripción funcional:** Este método forma parte del controlador `UsuarioSistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Editar`
+- **Parámetros:** [FromBody] UsuarioSistemaRequest request
+- **Descripción funcional:** Este método forma parte del controlador `UsuarioSistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+### 🔸 Método: `Eliminar`
+- **Parámetros:** [FromQuery] int usuarioId, [FromQuery] int sistemaId
+- **Descripción funcional:** Este método forma parte del controlador `UsuarioSistema` y gestiona una operación relacionada.
+- **Funcionamiento esperado:** Procesa una solicitud HTTP, posiblemente recibe parámetros (como datos en el cuerpo o por URL), invoca una capa de lógica de negocio (Gestor) y retorna una respuesta estándar como `200 OK`, `401 Unauthorized`, `404 Not Found`, etc., según el caso.
+
+---
