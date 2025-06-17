@@ -1,5 +1,5 @@
-using SecuritysApp.Auditoria.Data;
-using SecuritysApp.Auditoria.Entidades;
+using SecuritysApp.Models.Auditoria.Data;
+using SecuritysApp.Models.Auditoria.Entidades;
 
 namespace SecuritysApp.Auditoria.Gestores
 {

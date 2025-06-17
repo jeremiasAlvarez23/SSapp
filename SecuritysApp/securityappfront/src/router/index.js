@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
+import DefaultLayout from '../views/DefaultLayout.vue'
 
 const routes = [
   {
@@ -9,10 +10,16 @@ const routes = [
     component: LoginView
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: DashboardView,
-    meta: { requiresAuth: true } // Indicador para el guardia
+    path: '/',
+    component: DefaultLayout,
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: DashboardView
+      }
+    ]
   }
 ]
 
@@ -21,11 +28,10 @@ const router = createRouter({
   routes
 })
 
-// Guardia de autenticación
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
   if (to.meta.requiresAuth && !token) {
-    next('/') // Redirige a login si no hay token
+    next('/')
   } else {
     next()
   }

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
 using SecuritysApp.Data;
-using SecuritysApp.Auditoria.Data;
+using SecuritysApp.Models.Auditoria.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;

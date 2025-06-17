@@ -7,7 +7,7 @@ using SecuritysApp.Utils;
 
 namespace SecuritysApp.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/v1")]
     public class SistemaController : AppController

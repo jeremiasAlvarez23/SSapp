@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SecuritysApp.Auditoria.Entidades;
+namespace SecuritysApp.Models.Auditoria.Entidades;
 
 public partial class AuditoriaMain
 {

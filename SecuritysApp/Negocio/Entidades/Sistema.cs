@@ -15,5 +15,7 @@ public partial class Sistema
 
     public bool Activo { get; set; }
 
+    public virtual ICollection<Menu> Menu { get; set; } = new List<Menu>();
+
     public virtual ICollection<UsuarioSistema> UsuarioSistema { get; set; } = new List<UsuarioSistema>();
 }

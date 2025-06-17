@@ -7,7 +7,8 @@ using SecuritysApp.Utils;
 
 namespace SecuritysApp.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
+    [AllowAnonymous]
     [ApiController]
     [Route("[controller]")]
     public class UsuarioController : AppController
@@ -53,7 +54,12 @@ namespace SecuritysApp.Controllers
         [HttpPut(AppRoutes.v1.Usuario.Editar)]
         public IActionResult Editar(int id, [FromBody] UsuarioRequest request)
         {
-            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var usuarioClaim = User.Claims.FirstOrDefault(c => c.Type == "UsuarioId");
+            if (usuarioClaim == null)
+                return Unauthorized("No se encontró el claim UsuarioId");
+
+            var usuarioEjecutorId = int.Parse(usuarioClaim.Value);
+
             var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
             var userAgent = Request.Headers["User-Agent"].ToString();
             UsuarioGestor.Editar(id, request, usuarioEjecutorId, ip, userAgent);
@@ -63,7 +69,12 @@ namespace SecuritysApp.Controllers
         [HttpPut(AppRoutes.v1.Usuario.Desactivar)]
         public IActionResult Desactivar(int id)
         {
-            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var usuarioClaim = User.Claims.FirstOrDefault(c => c.Type == "UsuarioId");
+            if (usuarioClaim == null)
+                return Unauthorized("No se encontró el claim UsuarioId");
+
+            var usuarioEjecutorId = int.Parse(usuarioClaim.Value);
+
             var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
             var userAgent = Request.Headers["User-Agent"].ToString();
             UsuarioGestor.Desactivar(id, usuarioEjecutorId, ip, userAgent);
@@ -73,7 +84,12 @@ namespace SecuritysApp.Controllers
         [HttpPut(AppRoutes.v1.Usuario.Activar)]
         public IActionResult Activar(int id)
         {
-            var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var usuarioClaim = User.Claims.FirstOrDefault(c => c.Type == "UsuarioId");
+            if (usuarioClaim == null)
+                return Unauthorized("No se encontró el claim UsuarioId");
+
+            var usuarioEjecutorId = int.Parse(usuarioClaim.Value);
+
             var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
             var userAgent = Request.Headers["User-Agent"].ToString();
             UsuarioGestor.Activar(id, usuarioEjecutorId, ip, userAgent);

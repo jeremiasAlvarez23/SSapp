@@ -6,7 +6,7 @@ using SecuritysApp.Utils;
 
 namespace SecuritysApp.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PerfilController : AppController

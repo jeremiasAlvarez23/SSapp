@@ -58,6 +58,20 @@ namespace SecuritysApp.Routes
                 public const string Activar = Base + "/sistema/activar/{id}";
             }
 
+            public static class Menu
+            {
+                public const string Base = AppRoutes.v1.Base + "/menu";
+
+                public const string ObtenerPorUsuario = Base + "/usuario";
+                public const string ObtenerTodo = Base + "/todo";
+                public const string ObtenerPadres = Base + "/padres";
+                public const string ObtenerUltimoOrden = Base + "/ultimo-orden/{padreId}";
+                public const string Insertar = Base + "/insertar";
+                public const string Editar = Base + "/editar";
+                public const string Eliminar = Base + "/eliminar/{id}";
+            }
+
+
         }
     }
 }

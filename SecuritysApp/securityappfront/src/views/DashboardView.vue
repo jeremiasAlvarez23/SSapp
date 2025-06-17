@@ -1,29 +1,14 @@
 <template>
-  <v-container>
-    <h1>Bienvenido, {{ nombreUsuario }}</h1>
-    <v-btn color="error" @click="logout">Cerrar sesión</v-btn>
-  </v-container>
+  <div class="ohsi">
+    <h1>Bienvenido al Dashboard</h1>
+    <p>Contenido de la vista Dashboard.</p>
+  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      nombreUsuario: ''
-    }
-  },
-  mounted() {
-    const usuario = JSON.parse(localStorage.getItem('usuario'))
-    if (usuario) {
-      this.nombreUsuario = usuario.nombre
-    }
-  },
-  methods: {
-    logout() {
-      localStorage.removeItem('token')
-      localStorage.removeItem('usuario')
-      this.$router.push('/')
-    }
-  }
+  name: 'DashboardView'
 }
 </script>
+
+<style></style>
