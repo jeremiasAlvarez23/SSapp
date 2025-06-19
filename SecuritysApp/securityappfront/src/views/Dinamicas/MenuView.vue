@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card class="pa-4" outlined>
-      <v-card-title>MenuPruebaView</v-card-title>
+      <v-card-title>MenuView</v-card-title>
       <v-card-text>
         <p>Esta vista fue generada automáticamente.</p>
       </v-card-text>
@@ -11,6 +11,6 @@
 
 <script>
 export default {
-  name: 'MenuPruebaView'
+  name: 'MenuView'
 }
 </script>
