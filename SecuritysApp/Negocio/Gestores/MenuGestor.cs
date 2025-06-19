@@ -22,7 +22,7 @@ namespace SecuritysApp.Negocio.Gestores
                 Icono = request.Icono,
                 Color = request.Color,
                 Orden = request.Orden ?? 0,
-                MenuPadreId = request.MenuPadreId,
+                MenuPadreId = request.MenuPadreId ?? 0,
                 Visible = request.Visible,
                 SistemaId = request.SistemaId,
                 Activo = true
@@ -67,18 +67,9 @@ namespace SecuritysApp.Negocio.Gestores
         public static List<MenuResponse> ObtenerPorUsuario(int usuarioId)
         {
             using var context = new SecuritysContext();
-            var usuarioSistema = context.UsuarioSistema.FirstOrDefault(us => us.UsuarioId == usuarioId && us.TieneAcceso == true);
-            if (usuarioSistema == null)
-                return new();
 
-            if (!int.TryParse(usuarioSistema.RolSistema, out int rolId))
-                return new();
-
-            int sistemaId = usuarioSistema.SistemaId;
-
-            var menues = context.RolMenu
-                .Where(rm => rm.RolId == rolId && rm.Menu != null && rm.Menu.Activo == true && rm.Menu.SistemaId == sistemaId)
-                .Select(rm => rm.Menu!)
+            var menues = context.Menu
+                .Where(m => m.Activo == true && m.Visible == true)
                 .ToList();
 
             var padres = menues
@@ -122,7 +113,7 @@ namespace SecuritysApp.Negocio.Gestores
             menu.Nombre = request.Nombre;
             menu.Componente = request.Componente;
             menu.Ruta = request.Ruta;
-            menu.MenuPadreId = request.MenuPadreId;
+            menu.MenuPadreId = request.MenuPadreId ?? 0;
             menu.Orden = request.Orden ?? 0;
             menu.Icono = request.Icono;
             menu.Color = request.Color;

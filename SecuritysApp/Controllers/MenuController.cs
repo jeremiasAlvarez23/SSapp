@@ -18,8 +18,13 @@ namespace SecuritysApp.Controllers
             var usuarioEjecutorId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
             var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
             var userAgent = Request.Headers["User-Agent"].ToString();
+
             var result = MenuGestor.Insertar(request, usuarioEjecutorId, ip, userAgent);
-            return result ? Ok("Menú insertado.") : BadRequest("Ya existe un menú con ese nombre.");
+
+            if (result)
+                return Ok(new { mensaje = "Menú insertado." }); // ✅ CORREGIDO
+
+            return BadRequest(new { error = "Ya existe un menú con ese nombre." });
         }
 
         [HttpGet(AppRoutes.v1.Menu.ObtenerTodo)]

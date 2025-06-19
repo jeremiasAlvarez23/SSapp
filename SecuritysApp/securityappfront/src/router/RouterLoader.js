@@ -1,19 +1,19 @@
-// src/router/RouterLoader.js
-import ABMmenu from '../components/ABMmenu.vue'
-// Importá más componentes si lo necesitás
-
-const componentes = {
-    ABMmenu,
-    // otros: OtrasView, etc.
-}
-
 export function generarRutasDesdeMenu(menus) {
-    return menus.map(menu => {
-        return {
-            path: menu.ruta,
-            name: menu.nombre,
-            component: componentes[menu.componente],
-            meta: { requiresAuth: true }
-        }
+  const rutas = []
+
+  menus.forEach(menu => {
+    rutas.push({
+      path: menu.ruta,
+      name: menu.nombre,
+      // 👇 IMPORT DINÁMICO desde carpeta Dinamicas
+      component: () => import(`@/views/Dinamicas/${menu.componente}.vue`).catch(() => import('@/views/Dinamicas/VistaGenerica.vue')),
+      meta: { requiresAuth: true }
     })
+
+    if (menu.submenu?.length > 0) {
+      rutas.push(...generarRutasDesdeMenu(menu.submenu))
+    }
+  })
+
+  return rutas
 }

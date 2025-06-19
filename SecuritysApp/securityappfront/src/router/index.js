@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import DefaultLayout from '../views/DefaultLayout.vue'
+import { generarRutasDesdeMenu } from './RouterLoader'
+import MenuService from '../services/MenuService'
+import ABMmenu from '../components/ABMmenu.vue'
 
 const routes = [
   {
@@ -11,6 +14,7 @@ const routes = [
   },
   {
     path: '/',
+    name: 'DefaultLayout',
     component: DefaultLayout,
     meta: { requiresAuth: true },
     children: [
@@ -18,7 +22,12 @@ const routes = [
         path: '/dashboard',
         name: 'Dashboard',
         component: DashboardView
-      }
+      },
+      {
+        path: '/abm-menu',
+        name: 'ABMmenu',
+        component: ABMmenu
+      },
     ]
   }
 ]
@@ -36,5 +45,11 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
+MenuService.obtenerPorUsuario().then(menus => {
+  const rutas = generarRutasDesdeMenu(menus)
+  rutas.forEach(ruta => router.addRoute('DefaultLayout', ruta))
+})
+
 
 export default router
