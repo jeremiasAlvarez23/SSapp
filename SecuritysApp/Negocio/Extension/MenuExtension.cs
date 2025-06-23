@@ -10,6 +10,7 @@ namespace SecuritysApp.Negocio.Extension
             return new MenuResponse
             {
                 MenuId = menu.MenuId,
+                MenuPadreId = menu.MenuPadreId,
                 Nombre = menu.Nombre,
                 Ruta = menu.Ruta,
                 Componente = menu.Componente,

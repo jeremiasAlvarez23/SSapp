@@ -33,6 +33,18 @@ namespace SecuritysApp.Controllers
             return Ok(MenuGestor.ObtenerTodo());
         }
 
+        // [HttpGet(AppRoutes.v1.Menu.ObtenerPorUsuario)]
+        // public IActionResult ObtenerPorUsuario()
+        // {
+        //     var claim = User.Claims.FirstOrDefault(c => c.Type == "UsuarioId");
+
+        //     if (claim == null)
+        //         return Unauthorized("No se encontró el claim UsuarioId.");
+
+        //     var usuarioId = int.Parse(claim.Value);
+
+        //     return Ok(MenuGestor.ObtenerPorUsuario(usuarioId));
+        // }
         [HttpGet(AppRoutes.v1.Menu.ObtenerPorUsuario)]
         public IActionResult ObtenerPorUsuario()
         {

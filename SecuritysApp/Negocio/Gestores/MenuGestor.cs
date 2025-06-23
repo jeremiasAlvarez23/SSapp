@@ -78,6 +78,7 @@ namespace SecuritysApp.Negocio.Gestores
                 .Select(padre => new MenuResponse
                 {
                     MenuId = padre.MenuId,
+                    MenuPadreId = padre.MenuPadreId,
                     Nombre = padre.Nombre ?? "",
                     Ruta = padre.Ruta ?? "",
                     Componente = padre.Componente ?? "",
@@ -91,6 +92,7 @@ namespace SecuritysApp.Negocio.Gestores
                         .Select(m => new MenuResponse
                         {
                             MenuId = m.MenuId,
+                            MenuPadreId = padre.MenuPadreId,
                             Nombre = m.Nombre ?? "",
                             Ruta = m.Ruta ?? "",
                             Componente = m.Componente ?? "",

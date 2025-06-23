@@ -1,67 +1,90 @@
 <template>
-    <v-navigation-drawer v-model="internalDrawer" app color="#1e1e2f" width="260">
-        <v-list dense nav>
-            <!-- Ítem fijo: acceso al ABM de menú -->
-            <v-list-item to="/abm-menu" prepend-icon="mdi-cog" title="ABM Menú" class="mt-2" />
+  <v-navigation-drawer app color="deep-purple" dark>
+    <v-list dense>
+      <v-list-item>
+        <v-list-item-title class="white--text font-weight-bold">SSApp</v-list-item-title>
+      </v-list-item>
 
-            <v-divider class="my-2" />
+      <!-- Menús con hijos -->
+      <v-list-group
+        v-for="menuPadre in menusConHijos"
+        :key="menuPadre.menuId"
+        :prepend-icon="menuPadre.icono || 'mdi-menu-right'"
+      >
+        <template v-slot:activator="{ props }">
+          <v-list-item v-bind="props">
+            <v-list-item-title>{{ menuPadre.nombre }}</v-list-item-title>
+          </v-list-item>
+        </template>
 
-            <!-- Menús dinámicos -->
-            <template v-for="menu in items" :key="menu.menuId">
-                <!-- Si tiene submenús -->
-                <v-list-group v-if="menu.submenu && menu.submenu.length > 0" :value="false" no-action>
-                    <template #activator>
-                        <v-list-item-title>
-                            <v-icon start>{{ menu.icono || 'mdi-folder' }}</v-icon>
-                            {{ menu.nombre }}
-                        </v-list-item-title>
-                    </template>
+        <v-list-item
+          v-for="submenu in obtenerSubmenus(menuPadre.menuId)"
+          :key="submenu.menuId"
+          :to="submenu.ruta"
+          link
+          router
+          class="pl-6"
+        >
+          <v-list-item-title>{{ submenu.nombre }}</v-list-item-title>
+        </v-list-item>
+      </v-list-group>
 
-                    <v-list-item v-for="sub in menu.submenu" :key="sub.menuId" :to="sub.ruta" link>
-                        <v-icon start>{{ sub.icono || 'mdi-file' }}</v-icon>
-                        <v-list-item-title>{{ sub.nombre }}</v-list-item-title>
-                    </v-list-item>
-                </v-list-group>
-
-                <!-- Si NO tiene submenús -->
-                <v-list-item v-else :to="menu.ruta" link>
-                    <v-icon start>{{ menu.icono || 'mdi-menu' }}</v-icon>
-                    <v-list-item-title>{{ menu.nombre }}</v-list-item-title>
-                </v-list-item>
-            </template>
-        </v-list>
-    </v-navigation-drawer>
+      <!-- Menús sin hijos -->
+      <v-list-item
+        v-for="menu in menusIndependientes"
+        :key="menu.menuId"
+        :to="menu.ruta"
+        link
+        router
+      >
+        <v-list-item-title>{{ menu.nombre }}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script>
-export default {
-    name: 'SidebarMenu',
-    props: {
-        modelValue: {
-            type: Boolean,
-            default: true
-        },
-        items: {
-            type: Array,
-            required: true
-        }
-    },
-    computed: {
-        internalDrawer: {
-            get() {
-                return this.modelValue
-            },
-            set(val) {
-                this.$emit('update:modelValue', val)
-            }
-        }
-    }
-}
-</script>
+import MenuService from "../services/MenuService";
 
-<style scoped>
-.v-navigation-drawer {
-    background-color: #1e1e2f;
-    color: #ffffff;
-}
-</style>
+export default {
+  data() {
+    return {
+      menus: [],
+    };
+  },
+  computed: {
+    menusConHijos() {
+      return this.menus.filter(
+        m => m.menuPadreId === 0 &&
+        this.menus.some(h => h.menuPadreId === m.menuId && h.ruta && h.componente)
+      );
+    },
+    menusIndependientes() {
+      return this.menus.filter(
+        m =>
+          m.menuPadreId === 0 &&
+          !this.menus.some(h => h.menuPadreId === m.menuId && h.ruta && h.componente) &&
+          m.ruta &&
+          m.componente
+      );
+    }
+  },
+  methods: {
+    obtenerSubmenus(padreId) {
+      return this.menus.filter(m => m.menuPadreId === padreId && m.ruta && m.componente);
+    },
+    async cargarMenus() {
+      try {
+        const response = await MenuService.obtenerTodo();
+        console.log("MENÚS DESDE BACKEND:", response);
+        this.menus = response;
+      } catch (error) {
+        console.error("Error al cargar menús:", error);
+      }
+    },
+  },
+  created() {
+    this.cargarMenus();
+  },
+};
+</script>

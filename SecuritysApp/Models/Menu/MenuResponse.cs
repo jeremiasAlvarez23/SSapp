@@ -3,6 +3,7 @@ namespace SecuritysApp.Models.Menu
     public class MenuResponse
     {
         public int MenuId { get; set; }
+        public int MenuPadreId { get; set; } 
         public string Nombre { get; set; } = null!;
         public string? Ruta { get; set; }
         public string? Componente { get; set; }
