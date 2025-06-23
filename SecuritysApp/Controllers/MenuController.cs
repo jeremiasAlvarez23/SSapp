@@ -36,7 +36,13 @@ namespace SecuritysApp.Controllers
         [HttpGet(AppRoutes.v1.Menu.ObtenerPorUsuario)]
         public IActionResult ObtenerPorUsuario()
         {
-            var usuarioId = int.Parse(User.Claims.First(c => c.Type == "UsuarioId").Value);
+            var claim = User.Claims.FirstOrDefault(c => c.Type == "UsuarioId");
+
+            if (claim == null)
+                return Unauthorized("No se encontró el claim UsuarioId.");
+
+            var usuarioId = int.Parse(claim.Value);
+
             return Ok(MenuGestor.ObtenerPorUsuario(usuarioId));
         }
 
