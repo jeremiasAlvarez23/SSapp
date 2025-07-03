@@ -2,7 +2,7 @@ namespace SecuritysApp.Models.Menu
 {
     public class InsertarMenuRequest
     {
-        public string Nombre { get; set; } = null!;
+        public string? Nombre { get; set; } = null!;
         public string? Ruta { get; set; }
         public string? Icono { get; set; } = null;
         public string? Color { get; set; } = null;
@@ -14,3 +14,6 @@ namespace SecuritysApp.Models.Menu
         public int? Orden { get; set; } = 0;
     }
 }
+
+
+
