@@ -6,17 +6,11 @@
         <v-form @submit.prevent="crearMenu">
           <v-text-field v-model="form.nombre" label="Nombre" required></v-text-field>
           <v-text-field v-model="form.ruta" label="Ruta (ej: /nueva-vista)" required></v-text-field>
-          <v-text-field v-model="form.componente" label="Nombre del componente (ej: VistaGenerica)" required></v-text-field>
+          <v-text-field v-model="form.componente" label="Nombre del componente (ej: VistaGenerica)"></v-text-field>
           <v-text-field v-model="form.icono" label="Ícono (ej: mdi-view-dashboard)"></v-text-field>
           <v-text-field v-model="form.color" label="Color"></v-text-field>
-          <v-select
-            v-model="form.menuPadreId"
-            :items="padres"
-            item-title="nombre"
-            item-value="menuId"
-            label="Menú padre (opcional)"
-            return-object
-          ></v-select>
+          <v-select v-model="form.menuPadreId" :items="padres" item-title="nombre" item-value="menuId"
+            label="Menú padre (opcional)" return-object></v-select>
           <v-switch v-model="form.visible" label="Visible"></v-switch>
           <v-btn type="submit" color="primary">Crear menú</v-btn>
         </v-form>
@@ -33,7 +27,7 @@ export default {
   data() {
     return {
       form: {
-        nombre: '',
+        nombre: null,
         ruta: '',
         componente: '',
         icono: '',
@@ -50,6 +44,11 @@ export default {
     MenuService.obtenerPadres().then(res => this.padres = res)
   },
   methods: {
+    getNombrePadre() {
+      if (!this.form.menuPadreId) return ''
+      const padre = this.padres.find(p => p.menuId === this.form.menuPadreId)
+      return padre ? padre.nombre : ''
+    },
     async crearMenu() {
       try {
         // Normalizar datos
@@ -63,7 +62,11 @@ export default {
         // Asignar ícono por defecto si está vacío
         if (!this.form.icono) this.form.icono = 'mdi-menu'
 
-        // Crear objeto limpio para insertar
+        // Si es menú padre sin componente, poner nombre ficticio
+        if (!this.form.componente && (!this.form.menuPadreId || this.form.menuPadreId === 0)) {
+          this.form.componente = 'folder'
+        }
+
         const payload = { ...this.form }
         if (!payload.color) delete payload.color
         if (!payload.componente) delete payload.componente
@@ -74,8 +77,8 @@ export default {
 
         console.log('📤 Menú insertado correctamente, generando vista...')
 
-        // Generar vista con servidor Node.js
-        await fetch(`http://localhost:3000/generar-vista/${this.form.componente}`)
+        // Generar vista o carpeta
+        await fetch(`http://localhost:3000/generar-vista/${this.form.componente}?MenuPadreId=${this.form.menuPadreId || 0}&Nombre=${this.form.nombre}&CarpetaPadre=${this.getNombrePadre()}`)
 
         alert('✅ Menú y vista creados con éxito')
         window.location.reload()
