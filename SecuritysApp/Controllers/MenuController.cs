@@ -21,11 +21,25 @@ namespace SecuritysApp.Controllers
 
             var result = MenuGestor.Insertar(request, usuarioEjecutorId, ip, userAgent);
 
-            if (result)
-                return Ok(new { mensaje = "Menú insertado." }); // ✅ CORREGIDO
+            if (!result)
+                return BadRequest(new { error = "Ya existe un menú con ese nombre." });
 
-            return BadRequest(new { error = "Ya existe un menú con ese nombre." });
+            string? carpeta = null;
+
+            if (request.MenuPadreId.HasValue && request.MenuPadreId.Value > 0)
+            {
+                using var context = new SecuritysApp.Data.SecuritysContext();
+                var menuPadre = context.Menu.FirstOrDefault(m => m.MenuId == request.MenuPadreId.Value);
+                carpeta = menuPadre?.Nombre;
+            }
+
+            return Ok(new
+            {
+                mensaje = "Menú insertado.",
+                carpeta = carpeta
+            });
         }
+
 
         [HttpGet(AppRoutes.v1.Menu.ObtenerTodo)]
         public IActionResult ObtenerTodo()
