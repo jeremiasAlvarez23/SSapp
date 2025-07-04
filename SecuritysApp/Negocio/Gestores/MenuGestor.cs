@@ -16,7 +16,7 @@ namespace SecuritysApp.Negocio.Gestores
 
             var menu = new Entidades.Menu
             {
-                Nombre = request.Nombre,
+                Nombre = string.IsNullOrWhiteSpace(request.Nombre) ? null : request.Nombre,
                 Ruta = request.Ruta,
                 Componente = request.Componente,
                 Icono = request.Icono,
@@ -34,6 +34,7 @@ namespace SecuritysApp.Negocio.Gestores
             AuditoriaGestor.RegistrarEvento(usuarioEjecutorId, "Alta Menú", $"Se creó el menú {menu.Nombre}", "Menu", menu.MenuId.ToString(), null, ip, navegador);
             return true;
         }
+
 
         public static List<MenuResponse> ObtenerTodo()
         {
@@ -79,7 +80,7 @@ namespace SecuritysApp.Negocio.Gestores
                 {
                     MenuId = padre.MenuId,
                     MenuPadreId = padre.MenuPadreId,
-                    Nombre = padre.Nombre ?? "",
+                    Nombre = padre.Nombre,
                     Ruta = padre.Ruta ?? "",
                     Componente = padre.Componente ?? "",
                     Icono = padre.Icono ?? "",
