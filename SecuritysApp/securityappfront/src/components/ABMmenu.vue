@@ -70,21 +70,28 @@ export default {
           this.form.componente = 'folder';
         }
 
-        // 📂 Crear la vista y obtener la carpeta
-        const vistaRes = await fetch(
-          `http://localhost:3000/generar-vista/${this.form.componente}?MenuPadreId=${this.form.menuPadreId}&Nombre=${this.form.nombre}&CarpetaPadre=${this.getNombrePadre()}`
-        );
-        const respuestaVista = await vistaRes.json();
-        console.log('📥 Respuesta del servidor:', respuestaVista);
-
-        // ✅ Guardar carpeta desde backend o fallback
-        if (this.form.menuPadreId === 0) {
+        // ✅ Si es solo carpeta, asignar directamente y evitar fetch
+        if (this.form.componente === 'folder') {
           this.form.carpeta = this.form.nombre;
+
         } else {
-          this.form.carpeta = respuestaVista.carpeta;
+          // 📂 Crear la vista y obtener la carpeta
+          const vistaRes = await fetch(
+            `http://localhost:3000/generar-vista/${this.form.componente}?MenuPadreId=${this.form.menuPadreId}&Nombre=${this.form.nombre}&CarpetaPadre=${this.getNombrePadre()}`
+          );
+
+          if (!vistaRes.ok) {
+            const errorText = await vistaRes.text();
+            throw new Error(`❌ Error HTTP ${vistaRes.status}: ${errorText}`);
+          }
+
+          const respuestaVista = await vistaRes.json();
+          console.log('📥 Respuesta del servidor:', respuestaVista);
+
+          this.form.carpeta = respuestaVista.carpeta || this.getNombrePadre() || 'SinCarpeta';
         }
 
-        // 📦 Fallback adicional desde localStorage si aún no tiene valor
+        // 📦 Fallback adicional desde localStorage
         if (!this.form.carpeta) {
           this.form.carpeta = localStorage.getItem(`carpeta_${this.form.nombre}`) || this.getNombrePadre() || 'SinCarpeta';
         }
@@ -100,12 +107,11 @@ export default {
         // 💾 Insertar en BD
         await MenuService.insertar(payload);
 
-        // 🗃️ Guardar carpeta en localStorage por compatibilidad
+        // 🗃️ Guardar carpeta en localStorage
         localStorage.setItem(`carpeta_${this.form.nombre}`, this.form.carpeta);
 
         alert('✅ Menú y vista creados con éxito');
 
-        // 🔁 Recargar para que RouterLoader lo tome
         window.location.reload();
 
       } catch (e) {
@@ -113,6 +119,7 @@ export default {
         alert('Ocurrió un error al crear el menú o la vista');
       }
     }
+
   }
 }
 </script>
