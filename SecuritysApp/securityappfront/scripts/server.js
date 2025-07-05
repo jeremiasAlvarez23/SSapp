@@ -2,8 +2,10 @@ const express = require('express')
 const fs = require('fs')
 const path = require('path')
 const cors = require('cors')
-const app = express()
-app.use(cors())
+
+const app = express();
+app.use(cors());
+
 app.get('/generar-vista/:componente', (req, res) => {
   const componente = req.params.componente
   const menuPadreId = parseInt(req.query.MenuPadreId || '0')
@@ -49,6 +51,9 @@ export default {
       mensaje = 'ℹ️ Vista ya existía'
     }
   }
+
+  console.log('📦 Carpeta recibida (final):', nombreCarpeta);
+
   res.json({
     mensaje,
     componente,

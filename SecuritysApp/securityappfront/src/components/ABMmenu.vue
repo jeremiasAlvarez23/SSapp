@@ -35,7 +35,8 @@ export default {
         orden: 0,
         menuPadreId: null,
         visible: true,
-        sistemaId: 1
+        sistemaId: 1,
+        carpeta: ''
       },
       padres: []
     }
@@ -49,43 +50,67 @@ export default {
       const padre = this.padres.find(p => p.menuId === this.form.menuPadreId)
       return padre ? padre.nombre : ''
     },
+
     async crearMenu() {
       try {
-        // Normalizar datos
+        // 🧠 Convertir objeto padre a ID
         if (this.form.menuPadreId && typeof this.form.menuPadreId === 'object') {
-          this.form.menuPadreId = this.form.menuPadreId.menuId
+          this.form.menuPadreId = this.form.menuPadreId.menuId;
+        } else if (!this.form.menuPadreId) {
+          this.form.menuPadreId = 0;
         }
 
-        const ultimoOrden = await MenuService.obtenerUltimoOrden(this.form.menuPadreId || 0)
-        this.form.orden = ultimoOrden
+        // 🔢 Obtener orden del backend
+        const ultimoOrden = await MenuService.obtenerUltimoOrden(this.form.menuPadreId || 0);
+        this.form.orden = ultimoOrden;
 
-        // Asignar ícono por defecto si está vacío
-        if (!this.form.icono) this.form.icono = 'mdi-menu'
-
-        // Si es menú padre sin componente, poner nombre ficticio
-        if (!this.form.componente && (!this.form.menuPadreId || this.form.menuPadreId === 0)) {
-          this.form.componente = 'folder'
+        // 🎯 Valores por defecto
+        if (!this.form.icono) this.form.icono = 'mdi-menu';
+        if (!this.form.componente && this.form.menuPadreId === 0) {
+          this.form.componente = 'folder';
         }
 
-        const payload = { ...this.form }
-        if (!payload.color) delete payload.color
-        if (!payload.componente) delete payload.componente
+        // 📂 Crear la vista y obtener la carpeta
+        const vistaRes = await fetch(
+          `http://localhost:3000/generar-vista/${this.form.componente}?MenuPadreId=${this.form.menuPadreId}&Nombre=${this.form.nombre}&CarpetaPadre=${this.getNombrePadre()}`
+        );
+        const respuestaVista = await vistaRes.json();
+        console.log('📥 Respuesta del servidor:', respuestaVista);
 
-        console.log('✅ Enviando datos al backend para insertar menú:', payload)
+        // ✅ Guardar carpeta desde backend o fallback
+        if (this.form.menuPadreId === 0) {
+          this.form.carpeta = this.form.nombre;
+        } else {
+          this.form.carpeta = respuestaVista.carpeta;
+        }
 
-        await MenuService.insertar(payload)
+        // 📦 Fallback adicional desde localStorage si aún no tiene valor
+        if (!this.form.carpeta) {
+          this.form.carpeta = localStorage.getItem(`carpeta_${this.form.nombre}`) || this.getNombrePadre() || 'SinCarpeta';
+        }
 
-        console.log('📤 Menú insertado correctamente, generando vista...')
+        console.log(`🛣️ Ruta esperada: src/views/${this.form.carpeta}/${this.form.componente}.vue`);
 
-        // Generar vista o carpeta
-        await fetch(`http://localhost:3000/generar-vista/${this.form.componente}?MenuPadreId=${this.form.menuPadreId || 0}&Nombre=${this.form.nombre}&CarpetaPadre=${this.getNombrePadre()}`)
+        // 🧾 Payload listo
+        const payload = { ...this.form };
+        if (!payload.color) delete payload.color;
 
-        alert('✅ Menú y vista creados con éxito')
-        window.location.reload()
+        console.log('📝 Payload final a insertar:', payload);
+
+        // 💾 Insertar en BD
+        await MenuService.insertar(payload);
+
+        // 🗃️ Guardar carpeta en localStorage por compatibilidad
+        localStorage.setItem(`carpeta_${this.form.nombre}`, this.form.carpeta);
+
+        alert('✅ Menú y vista creados con éxito');
+
+        // 🔁 Recargar para que RouterLoader lo tome
+        window.location.reload();
 
       } catch (e) {
-        console.error('❌ Error en el flujo de creación de menú o vista:', e)
-        alert('Ocurrió un error al crear el menú o la vista')
+        console.error('❌ Error en el flujo de creación de menú o vista:', e);
+        alert('Ocurrió un error al crear el menú o la vista');
       }
     }
   }
