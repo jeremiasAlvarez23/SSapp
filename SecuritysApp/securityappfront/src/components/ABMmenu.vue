@@ -14,6 +14,7 @@
           <v-switch v-model="form.visible" label="Visible"></v-switch>
           <v-btn type="submit" color="primary">Crear menú</v-btn>
         </v-form>
+        <!-- colas -->
       </v-card-text>
     </v-card>
   </v-container>
